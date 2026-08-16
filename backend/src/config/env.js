@@ -5,8 +5,39 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // backend/.env is the canonical location; fall back to repo root .env
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+const loaded = [
+  dotenv.config({ path: path.resolve(__dirname, '../../.env') }),
+  dotenv.config({ path: path.resolve(__dirname, '../../../.env') }),
+];
+
+/**
+ * dotenv never overwrites a variable that already exists in the environment —
+ * correct for deployments, confusing in development. A stale `NODE_ENV` left in
+ * a shell silently wins over `.env`, and the app then reports an environment the
+ * developer never configured. Warn instead of failing, so the mismatch is
+ * visible at startup rather than discovered through wrong behaviour.
+ */
+const shadowed = [];
+for (const result of loaded) {
+  for (const [key, fileValue] of Object.entries(result.parsed || {})) {
+    if (process.env[key] !== fileValue && !shadowed.some((s) => s.key === key)) {
+      shadowed.push({ key, fileValue, actual: process.env[key] });
+    }
+  }
+}
+
+if (shadowed.length) {
+  const secret = /SECRET|PASSWORD|URI|TOKEN|KEY/i;
+  const show = (k, v) => (secret.test(k) ? '<hidden>' : v);
+  // eslint-disable-next-line no-console
+  console.warn(
+    `\n[orvexa] These variables are set in your shell and override .env:\n` +
+      shadowed
+        .map((s) => `  ${s.key}: using "${show(s.key, s.actual)}" (.env says "${show(s.key, s.fileValue)}")`)
+        .join('\n') +
+      `\n  Unset them to use .env — e.g. PowerShell: Remove-Item Env:${shadowed[0].key}\n`
+  );
+}
 
 const required = ['MONGODB_URI', 'JWT_SECRET'];
 const missing = required.filter((k) => !process.env[k]);
