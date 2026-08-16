@@ -1,10 +1,15 @@
 import http from 'node:http';
+import configureDns from './config/dns.js';
 import app from './app.js';
 import env from './config/env.js';
 import connectDB from './config/db.js';
 import { initSocket } from './sockets/index.js';
 
 async function start() {
+  // Must run before any MongoDB connection: Atlas `mongodb+srv://` URIs need an
+  // SRV lookup, and some networks' default resolvers refuse SRV queries.
+  configureDns();
+
   await connectDB();
 
   const server = http.createServer(app);

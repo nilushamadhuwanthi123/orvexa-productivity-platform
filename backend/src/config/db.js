@@ -26,7 +26,13 @@ export async function connectDB() {
   });
 
   await mongoose.connect(env.mongoUri, {
-    serverSelectionTimeoutMS: 15000,
+    // Atlas shared tiers can be slow to answer the first handshake, and home
+    // networks blip. These give the driver room to retry a replica-set member
+    // instead of surfacing "connection <monitor> to <ip>:27017 timed out" as a
+    // failed request.
+    serverSelectionTimeoutMS: 30000,
+    connectTimeoutMS: 30000,
+    socketTimeoutMS: 45000,
     maxPoolSize: 20,
   });
 
