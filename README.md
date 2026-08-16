@@ -112,18 +112,67 @@ happen.
 
 ## Screenshots
 
-> Add screenshots here after running the app locally. Suggested captures:
-> `docs/screenshots/landing.png`, `dashboard.png`, `board.png`,
-> `task-drawer.png`, `analytics.png`, `calendar.png`, `light-theme.png`.
+All screenshots are captured from the running application with seeded demo data —
+every number shown is computed from MongoDB, not mocked.
 
-| Screen | |
-|---|---|
-| Landing page | `docs/screenshots/landing.png` |
-| Dashboard (dark) | `docs/screenshots/dashboard.png` |
-| Kanban board | `docs/screenshots/board.png` |
-| Task drawer | `docs/screenshots/task-drawer.png` |
-| Analytics | `docs/screenshots/analytics.png` |
-| Calendar | `docs/screenshots/calendar.png` |
+### Landing
+
+![Landing page](docs/screenshots/landing.png)
+
+### Dashboard
+
+Five KPIs from live aggregation pipelines, weekly progress, and insights derived
+from real completion history.
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+![Progress, insights and activity](docs/screenshots/dashboard-progress.png)
+
+Project health always explains the score behind it.
+
+![Project health](docs/screenshots/project-health.png)
+
+A GitHub-style contribution heatmap built from completion history.
+
+![Productivity streak and goals](docs/screenshots/streak.png)
+
+### Kanban board
+
+Five columns with dnd-kit drag and drop, optimistic UI, and every move persisted
+to MongoDB and broadcast over Socket.IO.
+
+![Kanban board](docs/screenshots/board.png)
+
+### Project workspace
+
+![Project overview](docs/screenshots/project-workspace.png)
+
+![Timeline](docs/screenshots/timeline.png)
+
+### Personal productivity
+
+![My Work](docs/screenshots/my-work.png)
+
+![Calendar](docs/screenshots/calendar.png)
+
+### Analytics
+
+![Analytics](docs/screenshots/analytics.png)
+
+### Team, admin and settings
+
+![Team](docs/screenshots/team.png)
+
+![Admin and system health](docs/screenshots/admin.png)
+
+Light / Dark / System themes plus Normal, Comfort and Focus eye-comfort modes,
+applied at the design-token level.
+
+![Settings](docs/screenshots/settings.png)
+
+### Authentication
+
+![Login](docs/screenshots/login.png)
 
 ---
 

@@ -48,3 +48,5 @@ desktop.ini
 # misc
 *.zip
 !.gitkeep
+
+shots/
