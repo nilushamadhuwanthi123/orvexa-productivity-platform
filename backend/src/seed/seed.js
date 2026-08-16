@@ -8,6 +8,7 @@
  *   npm run seed
  */
 import mongoose from 'mongoose';
+import configureDns from '../config/dns.js';
 import env from '../config/env.js';
 import connectDB from '../config/db.js';
 import User from '../models/User.js';
@@ -138,6 +139,10 @@ const COMMENTS = [
 ];
 
 async function run() {
+  // Must run before any MongoDB connection: Atlas `mongodb+srv://` URIs need an
+  // SRV lookup, and some networks' default resolvers refuse SRV queries.
+  configureDns();
+
   console.log(`\n[seed] connecting to ${env.mongoUri.replace(/:\/\/[^@]+@/, '://***@')}`);
   await connectDB();
 
