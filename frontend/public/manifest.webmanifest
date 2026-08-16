@@ -1,0 +1,12 @@
+{
+  "name": "Orvexa — Operations & Productivity Platform",
+  "short_name": "Orvexa",
+  "description": "Turn team work into visible progress.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#0B1714",
+  "theme_color": "#0B1714",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

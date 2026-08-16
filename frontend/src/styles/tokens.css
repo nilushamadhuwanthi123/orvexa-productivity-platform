@@ -1,0 +1,248 @@
+/* ============================================================
+   Orvexa design tokens
+   Forest + Champagne is the product identity. The supporting
+   palettes below are reserved for data visualisation only, so
+   the interface stays calm while charts stay legible.
+   ============================================================ */
+
+:root {
+  /* ---- typography ---- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Menlo, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.9375rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.25rem;
+
+  /* ---- spacing (4px base) ---- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+
+  /* ---- radii ---- */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-full: 999px;
+
+  /* ---- motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 380ms;
+
+  /* ---- layout ---- */
+  --sidebar-w: 248px;
+  --sidebar-w-collapsed: 68px;
+  --topbar-h: 60px;
+  --content-max: 1440px;
+
+  --z-dropdown: 40;
+  --z-sticky: 50;
+  --z-drawer: 60;
+  --z-modal: 70;
+  --z-toast: 80;
+  --z-cursor: 90;
+}
+
+/* ================= DARK (default) ================= */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0b1714;
+  --bg-elevated: #0f1d19;
+  --surface: #12221d;
+  --surface-2: #162923;
+  --surface-3: #1b322a;
+  --overlay: rgba(4, 10, 9, 0.72);
+
+  --primary: #2dd4a8;
+  --primary-hover: #45e0b8;
+  --primary-soft: rgba(45, 212, 168, 0.12);
+  --primary-soft-2: rgba(45, 212, 168, 0.2);
+  --on-primary: #04231b;
+
+  --accent: #e8c77a;
+  --accent-soft: rgba(232, 199, 122, 0.14);
+  --on-accent: #241c07;
+
+  --secondary: #91b7a6;
+  --warning: #f4a261;
+  --warning-soft: rgba(244, 162, 97, 0.14);
+  --danger: #e76f80;
+  --danger-soft: rgba(231, 111, 128, 0.14);
+  --info: #67b7ff;
+  --info-soft: rgba(103, 183, 255, 0.14);
+
+  --text: #f5f1e8;
+  --text-muted: #82958d;
+  --text-subtle: #5f7069;
+
+  --border: #243831;
+  --border-strong: #2f4740;
+  --border-focus: var(--primary);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px -4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 18px 48px -12px rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 0 1px rgba(45, 212, 168, 0.2), 0 8px 32px -8px rgba(45, 212, 168, 0.25);
+
+  --grid-line: rgba(245, 241, 232, 0.06);
+}
+
+/* ================= LIGHT ================= */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f4f3ee;
+  --bg-elevated: #faf9f5;
+  --surface: #ffffff;
+  --surface-2: #f7f6f1;
+  --surface-3: #eeede6;
+  --overlay: rgba(23, 32, 28, 0.4);
+
+  --primary: #168f73;
+  --primary-hover: #127b62;
+  --primary-soft: rgba(22, 143, 115, 0.1);
+  --primary-soft-2: rgba(22, 143, 115, 0.16);
+  --on-primary: #ffffff;
+
+  --accent: #c7a85b;
+  --accent-soft: rgba(199, 168, 91, 0.16);
+  --on-accent: #ffffff;
+
+  --secondary: #6f9b8a;
+  --warning: #d9843b;
+  --warning-soft: rgba(217, 132, 59, 0.14);
+  --danger: #c95568;
+  --danger-soft: rgba(201, 85, 104, 0.12);
+  --info: #2f74c0;
+  --info-soft: rgba(47, 116, 192, 0.12);
+
+  --text: #17201c;
+  --text-muted: #6d7772;
+  --text-subtle: #8a938e;
+
+  --border: #dce2de;
+  --border-strong: #c6cfc9;
+
+  --shadow-sm: 0 1px 2px rgba(23, 32, 28, 0.06);
+  --shadow-md: 0 4px 16px -4px rgba(23, 32, 28, 0.1);
+  --shadow-lg: 0 18px 48px -12px rgba(23, 32, 28, 0.18);
+  --shadow-glow: 0 0 0 1px rgba(22, 143, 115, 0.18), 0 8px 28px -10px rgba(22, 143, 115, 0.28);
+
+  --grid-line: rgba(23, 32, 28, 0.07);
+}
+
+/* ================= EYE COMFORT ================= */
+/* Comfort softens brightness and warms surfaces without a yellow overlay. */
+[data-comfort='comfort'] {
+  --bg: color-mix(in oklab, var(--bg) 92%, #d8b98a 8%);
+  --surface: color-mix(in oklab, var(--surface) 93%, #d8b98a 7%);
+  --surface-2: color-mix(in oklab, var(--surface-2) 93%, #d8b98a 7%);
+  --text: color-mix(in oklab, var(--text) 88%, var(--text-muted) 12%);
+  --dur-fast: 90ms;
+  --dur-base: 140ms;
+  --dur-slow: 220ms;
+}
+
+/* Focus removes decorative colour and motion so content leads. */
+[data-comfort='focus'] {
+  --accent-soft: transparent;
+  --primary-soft: color-mix(in oklab, var(--primary) 8%, transparent);
+  --shadow-glow: none;
+  --shadow-lg: var(--shadow-md);
+  --dur-fast: 0ms;
+  --dur-base: 0ms;
+  --dur-slow: 0ms;
+}
+
+[data-comfort='focus'] .decorative,
+[data-comfort='comfort'] .decorative--strong {
+  display: none;
+}
+
+/* ================= DATA VISUALISATION ================= */
+/* Chart series are deliberately separate from UI colour so a chart never
+   borrows semantic meaning from the interface (and vice versa). */
+:root {
+  /* Brand series — default for most charts */
+  --viz-1: #2dd4a8;
+  --viz-2: #e8c77a;
+  --viz-3: #91b7a6;
+  --viz-4: #67b7ff;
+  --viz-5: #f4a261;
+  --viz-6: #e76f80;
+
+  /* Palette A — Obsidian + Cobalt + Lime (technical / performance) */
+  --viz-a-1: #4c7dff;
+  --viz-a-2: #b8e64c;
+  --viz-a-3: #4fd1c5;
+  --viz-a-4: #ff9f43;
+  --viz-a-5: #ff6b6b;
+  --viz-a-6: #8b95a5;
+
+  /* Palette B — Burgundy + Sand + Teal (milestones / creative) */
+  --viz-b-1: #9b3f55;
+  --viz-b-2: #d9b77a;
+  --viz-b-3: #2fa7a0;
+  --viz-b-4: #70c9a8;
+  --viz-b-5: #f0a36b;
+  --viz-b-6: #91877f;
+
+  /* Palette C — Arctic + Neon Mint (real-time / futuristic) */
+  --viz-c-1: #67b7ff;
+  --viz-c-2: #8ef0c5;
+  --viz-c-3: #a7a4ff;
+  --viz-c-4: #ffb454;
+  --viz-c-5: #ff7185;
+  --viz-c-6: #8191a3;
+}
+
+[data-theme='light'] {
+  --viz-1: #168f73;
+  --viz-2: #c7a85b;
+  --viz-3: #6f9b8a;
+  --viz-4: #2f74c0;
+  --viz-5: #d9843b;
+  --viz-6: #c95568;
+}
+
+/* ================= STATUS COLOUR MAP ================= */
+:root {
+  --status-backlog: var(--text-subtle);
+  --status-todo: var(--secondary);
+  --status-in_progress: var(--info);
+  --status-in_review: var(--accent);
+  --status-done: var(--primary);
+
+  --priority-low: var(--text-subtle);
+  --priority-medium: var(--secondary);
+  --priority-high: var(--warning);
+  --priority-critical: var(--danger);
+
+  --health-healthy: var(--primary);
+  --health-at_risk: var(--warning);
+  --health-critical: var(--danger);
+}
