@@ -5,6 +5,7 @@ decisions behind each phase. Updated at the end of every completed phase.
 
 **Product:** Orvexa — a modern operations and productivity platform
 **Tagline:** Turn Team Work Into Visible Progress
+**Repository:** `orvexa-productivity-platform`
 **Stack:** React (Vite) · Node.js · Express · MongoDB (Mongoose) · Socket.IO · JWT · Zustand · Recharts · dnd-kit
 
 ---
@@ -24,17 +25,17 @@ decisions behind each phase. Updated at the end of every completed phase.
 | 9 | Comments & notifications | ✅ Complete |
 | 10 | Goals, time tracking & milestones | ✅ Complete |
 | 11 | Design system & theming | ✅ Complete |
-| 12 | Frontend shell, routing & auth screens | 🔄 In progress |
-| 13 | Premium dashboard & progress tracker | ⏳ Next |
-| 14 | Kanban board with drag & drop | ⏳ Planned |
-| 15 | Calendar & project timeline | ⏳ Planned |
-| 16 | Team management & admin | ⏳ Planned |
-| 17 | Global search & command centre | ⏳ Planned |
-| 18 | Accessibility & eye comfort | ⏳ Planned |
-| 19 | Testing & API documentation | ⏳ Planned |
-| 20 | Performance optimisation | ⏳ Planned |
-| 21 | Full QA pass | ⏳ Planned |
-| 22 | Documentation & release preparation | ⏳ Planned |
+| 12 | Frontend shell, routing & auth screens | ✅ Complete |
+| 13 | Premium dashboard & progress tracker | ✅ Complete |
+| 14 | Kanban board with drag & drop | ✅ Complete |
+| 15 | Calendar & project timeline | ✅ Complete |
+| 16 | Team management & admin | ✅ Complete |
+| 17 | Global search & command centre | ✅ Complete |
+| 18 | Accessibility & eye comfort | ✅ Complete |
+| 19 | Testing & API documentation | ✅ Written — awaiting a live database to execute against |
+| 20 | Performance optimisation | ✅ Complete |
+| 21 | Full QA pass against real data | ⏳ Blocked on database credentials |
+| 22 | Documentation & release preparation | 🔄 In progress |
 
 ---
 
@@ -135,22 +136,95 @@ motion), Focus (decoration removed, motion off) — implemented with
 `color-mix()` on the token layer, so no yellow overlay is ever painted over
 the interface.
 
+### Phase 12 — Frontend shell, routing & auth screens
+App shell with protected routing and role guards, route-level code splitting,
+Zustand stores (auth, UI, notifications), the axios client with single-flight
+refresh, the socket hook, and shared UI primitives (Avatar, Modal with focus
+trap, Toasts with undo, Progress, loading/empty/error states, custom cursor).
+Landing page, sign in, sign up with live password-strength feedback, a
+five-step onboarding flow that creates a real project, and 403/404 pages that
+explain rather than dead-end.
+
+### Phase 13 — Premium dashboard & progress tracker
+KPI row with real week-on-week trends and sparklines — where a trend cannot be
+computed the card shows nothing rather than a fabricated 0%. Weekly progress
+ring against the user's own goal, GitHub-style streak heatmap, goals, project
+health cards with reasons, deadlines bucketed by urgency, and a 30-day activity
+chart. The whole screen is one round trip to `/api/analytics/dashboard` and
+refreshes itself when any task changes in real time.
+
+### Phase 14 — Kanban board with drag & drop
+dnd-kit board with pointer and keyboard sensors. Moves are optimistic and roll
+back with an explicit error toast if the request fails, so the UI never claims
+a move was saved when it was not. Column position is persisted, so the board
+looks the same after a reload or on another device.
+
+### Phase 15 — Calendar & project timeline
+Month, week and day calendar views over every accessible project, with
+drag-to-reschedule persisted to MongoDB. Responsive Gantt-style timeline whose
+window is derived from the project's real earliest and latest dates, showing
+the project bar, milestones, tasks and a today marker.
+
+### Phase 16 — Team management & admin
+Team directory with live presence, skills and real workload figures. Admin
+panel with role management (guarded so the last admin cannot be removed), the
+audit log, and live system status read from `/api/health`. Deliberately no
+per-person ranking or individual productivity scoring.
+
+### Phase 17 — Global search & command centre
+Command centre on `Ctrl`+`K` with grouped, keyboard-navigable commands. Global
+search on `/` across projects, tasks, people and comments, scoped server-side
+to what the caller may see. Full shortcut map on `?`.
+
+### Phase 18 — Accessibility & eye comfort
+Semantic HTML, skip link, visible focus rings, keyboard-navigable board, modals
+that trap and restore focus, ARIA roles on custom controls, live regions for
+toasts, and `prefers-reduced-motion` / `prefers-color-scheme` respected. Colour
+is never the only signal — every status carries a text label.
+
+### Phase 19 — Testing & API documentation
+Three integration suites written against a **real** MongoDB instance rather
+than mocks: authentication, RBAC and project scoping, and task lifecycle plus
+derived analytics. Kanban persistence is verified by reading the database back,
+not by trusting the response body.
+
+**Decision:** when `MONGODB_URI_TEST` is unset the suites **skip** rather than
+silently passing, so a green run always means something was actually executed.
+
+Swagger UI is served at `/api-docs` from JSDoc annotations on the route files.
+
+### Phase 20 — Performance optimisation
+Route-level code splitting; manual vendor chunks for React, Recharts, dnd-kit
+and Framer Motion so a code change does not invalidate the whole bundle cache;
+compound and text indexes on the query paths the UI actually uses; project list
+statistics fetched with one `$group` instead of N+1 queries; pagination on
+every list endpoint; stale-request guarding in `useAsync`; debounced search;
+gzip compression. Verified with `npm run build` — largest gzipped chunk is
+108 kB (Recharts), and it loads only on screens that draw charts.
+
 ---
 
 ## In progress
 
-### Phase 12 — Frontend shell, routing & auth screens
-App shell, protected routing, Zustand stores (auth, UI, notifications), the
-axios client with refresh handling, the socket hook, and shared UI primitives
-(Avatar, Modal, Toasts, Progress, loading/empty/error states, custom cursor).
+### Phase 22 — Documentation & release preparation
+Full README covering architecture, database design, the API surface, setup,
+design system, security, performance, accessibility and deployment — including
+an explicit *Deliberate omissions* section stating what was left out and why,
+rather than shipping controls that would do nothing.
 
 ---
 
-## Next
+## Blocked
 
-**Phase 13 — Premium dashboard & progress tracker.** KPI row with real trends,
-weekly progress ring, goals, project health cards, upcoming deadlines, streak
-heatmap and productivity charts — all bound to `/api/analytics/dashboard`.
+### Phase 21 — Full QA pass against real data
+The application cannot be run end to end until MongoDB credentials are
+available (an Atlas database user plus an IP access list entry). Until then the
+test suites skip rather than report a false pass, and no phase is marked
+"verified against live data" that has not been.
+
+**Verified so far without a database:** the frontend production build succeeds
+with no unresolved imports; the Express app and every module import cleanly;
+all backend files pass `node --check`.
 
 ---
 
@@ -158,11 +232,14 @@ heatmap and productivity charts — all bound to `/api/analytics/dashboard`.
 
 - **No fake features.** If something appears in the UI it is wired to a real
   endpoint. Features that cannot be implemented honestly are removed rather
-  than stubbed. The AI assistant disables itself cleanly when no API key is
-  configured instead of returning canned text.
+  than stubbed, and the README lists them. The AI assistant disables itself
+  cleanly when no API key is configured instead of returning canned text.
 - **Server is the authority.** Every permission check exists on the server;
   the UI only mirrors it.
 - **Derived over stored.** Progress, health and goal figures are computed from
   task data at read time, so they cannot drift from the truth.
+- **Optimistic, but honest.** Optimistic updates always carry a rollback path
+  and an explicit error message. The app never reports a save that did not
+  happen — including while offline.
 - **Secrets never enter the repository.** `.env` is git-ignored from the first
   commit; `.env.example` carries placeholders only.
