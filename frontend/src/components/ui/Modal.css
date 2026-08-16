@@ -1,0 +1,104 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+  backdrop-filter: blur(3px);
+}
+
+.modal__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  max-height: 92vh;
+  width: 100%;
+}
+
+.modal--center {
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+}
+.modal--center .modal__panel {
+  border-radius: var(--r-xl);
+}
+
+.modal--drawer {
+  justify-content: flex-end;
+}
+.modal--drawer .modal__panel {
+  height: 100%;
+  max-height: 100%;
+  border-radius: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.modal__panel--sm { max-width: 420px; }
+.modal__panel--md { max-width: 560px; }
+.modal__panel--lg { max-width: 760px; }
+.modal__panel--xl { max-width: 980px; }
+
+.modal--drawer .modal__panel--sm { max-width: 400px; }
+.modal--drawer .modal__panel--md { max-width: 520px; }
+.modal--drawer .modal__panel--lg { max-width: 660px; }
+
+.modal__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-5) var(--sp-4);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal__title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.modal__desc {
+  font-size: var(--text-sm);
+  margin-top: 2px;
+}
+
+.modal__body {
+  padding: var(--sp-5);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal__foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-5);
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .modal--center {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal--center .modal__panel {
+    border-radius: var(--r-xl) var(--r-xl) 0 0;
+    max-height: 88vh;
+  }
+  .modal--drawer .modal__panel {
+    max-width: 100%;
+  }
+}

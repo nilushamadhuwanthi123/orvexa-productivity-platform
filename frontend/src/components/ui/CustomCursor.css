@@ -1,0 +1,68 @@
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  border-radius: var(--r-full);
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: var(--primary);
+}
+
+.cursor-ring {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 1px solid var(--primary);
+  opacity: 0.45;
+  transition:
+    width var(--dur-base) var(--ease-out),
+    height var(--dur-base) var(--ease-out),
+    margin var(--dur-base) var(--ease-out),
+    opacity var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.cursor-ring.is-hover {
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  background: var(--primary-soft);
+  opacity: 0.85;
+}
+
+.cursor-ring.is-down {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  opacity: 1;
+}
+
+.cursor-ring.is-hidden {
+  opacity: 0;
+}
+
+/* Only hide the native cursor once ours is actually mounted. */
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none !important;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce), (max-width: 899px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: auto !important;
+  }
+}
