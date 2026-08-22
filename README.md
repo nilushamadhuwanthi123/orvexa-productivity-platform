@@ -14,6 +14,10 @@ from your actual data — not estimated, not decorative.
 [![MongoDB](https://img.shields.io/badge/MongoDB-8-E8C77A?style=flat-square&logo=mongodb&logoColor=black)](https://www.mongodb.com)
 [![Socket.IO](https://img.shields.io/badge/Socket.IO-4-91B7A6?style=flat-square&logo=socket.io&logoColor=black)](https://socket.io)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-orvexa-16A34A?style=for-the-badge&logo=railway&logoColor=white&labelColor=0F0C29)](https://orvexa-production-1b61.up.railway.app)
+
+Single Docker deployment on Railway — Express serves the built React app and the API from one origin, with a managed MongoDB instance.
+
 </div>
 
 ---

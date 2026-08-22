@@ -54,6 +54,17 @@ app.get('/api-docs.json', (_req, res) => res.json(swaggerSpec));
 
 app.use('/api', routes);
 
+// In production the frontend is built and copied alongside this backend
+// (see the repo-root Dockerfile) — serve it from the same origin so the
+// frontend's relative `/api` baseURL just works, no CORS needed.
+if (env.isProd) {
+  const clientDist = path.join(__dirname, '../public');
+  app.use(express.static(clientDist));
+  app.get(/^(?!\/api|\/uploads|\/api-docs).*/, (_req, res) => {
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
+
 app.use(notFoundHandler);
 app.use(errorHandler);
 
