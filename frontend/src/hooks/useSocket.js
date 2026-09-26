@@ -6,6 +6,21 @@ import { useNotificationStore } from '../store/notificationStore.js';
 
 let socket = null;
 
+/**
+ * Realtime is a feature of the deployment, not of the app.
+ *
+ * Socket.IO needs a process that stays alive holding the connection. That is
+ * how Orvexa runs locally and on any long-lived host, and it is the default
+ * here. On a serverless host there is no such process: every attempt would
+ * fail, retry eight times, and fill the console with errors while the rest of
+ * the app works fine. Setting VITE_REALTIME=off at build time turns the
+ * connection off cleanly instead — the board, projects and comments all still
+ * work, they just do not update until the page is refreshed.
+ */
+const REALTIME_ENABLED = import.meta.env.VITE_REALTIME !== 'off';
+
+export const isRealtimeEnabled = () => REALTIME_ENABLED;
+
 export const getSocket = () => socket;
 
 /**
@@ -20,7 +35,7 @@ export function useSocketConnection() {
   const started = useRef(false);
 
   useEffect(() => {
-    if (!user || started.current) return undefined;
+    if (!REALTIME_ENABLED || !user || started.current) return undefined;
     started.current = true;
 
     socket = io('/', {
